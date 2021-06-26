@@ -1,0 +1,351 @@
+to avoid no session found exception follow the following pattern
+
+package com.mindweaver.domain;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "coding_inventory")
+public class CodingInventory implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "coding_id")
+	private Long codingId;
+
+	@Column(name = "difficulty_level")
+	private String difficultyLevel;
+
+	@Column(name = "max_marks")
+	private String maxMarks;
+
+	@Column(name = "total_time")
+	private String totalTime;
+
+	@Column(name = "instruction", length = 65535, columnDefinition = "text")
+	private String instruction;
+
+	@Column(name = "program_question", length = 65535, columnDefinition = "text")
+	private String programQuestion;
+
+	@Column(name = "code_snippet", length = 65535, columnDefinition = "text")
+	private String codeSnippet;
+
+	@Column(name = "coding_task", length = 65535, columnDefinition = "text")
+	private String codingTask;
+
+	@Column(name = "coding_hint", length = 65535, columnDefinition = "text")
+	private String codingHint;
+
+	@Column(name = "question_type", columnDefinition = "varchar(255) default 'Coding'")
+	private String questionType;
+
+	@Column(name = "explanation", length = 65535, columnDefinition = "text")
+	private String explanation;
+
+	@Column(name = "topic", length = 65535, columnDefinition = "text")
+	private String topic;
+
+	@Column(name = "answer", length = 65535, columnDefinition = "text")
+	private String answer;
+
+	@Column(name = "customer_id")
+	private String customerId;
+
+	@Column(name = "pgm_lang")
+	private String pgmLang;
+
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "codId")
+//	private List<TestCases> testCases = new ArrayList<TestCases>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "codId")
+	private List<TestCases> testCases = new ArrayList<TestCases>();
+
+	public CodingInventory() {
+	}
+
+	public Long getCodingId() {
+		return codingId;
+	}
+
+	public void setCodingId(Long codingId) {
+		this.codingId = codingId;
+	}
+
+	public String getDifficultyLevel() {
+		return difficultyLevel;
+	}
+
+	public void setDifficultyLevel(String difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
+	}
+
+	public String getMaxMarks() {
+		return maxMarks;
+	}
+
+	public void setMaxMarks(String maxMarks) {
+		this.maxMarks = maxMarks;
+	}
+
+	public String getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(String totalTime) {
+		this.totalTime = totalTime;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+
+	public String getProgramQuestion() {
+		return programQuestion;
+	}
+
+	public void setProgramQuestion(String programQuestion) {
+		this.programQuestion = programQuestion;
+	}
+
+	public String getCodeSnippet() {
+		return codeSnippet;
+	}
+
+	public void setCodeSnippet(String codeSnippet) {
+		this.codeSnippet = codeSnippet;
+	}
+
+	public String getCodingTask() {
+		return codingTask;
+	}
+
+	public void setCodingTask(String codingTask) {
+		this.codingTask = codingTask;
+	}
+
+	public String getCodingHint() {
+		return codingHint;
+	}
+
+	public void setCodingHint(String codingHint) {
+		this.codingHint = codingHint;
+	}
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+
+	public String getExplanation() {
+		return explanation;
+	}
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public String getPgmLang() {
+		return pgmLang;
+	}
+
+	public void setPgmLang(String pgmLang) {
+		this.pgmLang = pgmLang;
+	}
+
+	public List<TestCases> getTestCases() {
+		return testCases;
+	}
+
+	public void setTestCases(List<TestCases> testCases) {
+		this.testCases = testCases;
+	}
+
+	@Override
+	public String toString() {
+		return "CodingInventory [codingId=" + codingId + ", difficultyLevel=" + difficultyLevel + ", maxMarks="
+				+ maxMarks + ", totalTime=" + totalTime + ", instruction=" + instruction + ", programQuestion="
+				+ programQuestion + ", codeSnippet=" + codeSnippet + ", codingTask=" + codingTask + ", codingHint="
+				+ codingHint + ", questionType=" + questionType + ", explanation=" + explanation + ", topic=" + topic
+				+ ", answer=" + answer + ", customerId=" + customerId + ", pgmLang=" + pgmLang + "]";
+	}
+
+}
+
+
+
+
+
+// ---------------------------------------------------------------------------------------------------
+
+package com.mindweaver.domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "test_cases")
+public class TestCases {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "test_case_id")
+	private long id;
+
+	@Column(name = "input", length = 65535, columnDefinition = "text")
+	private String input;
+
+	@Column(name = "output", length = 65535, columnDefinition = "text")
+	private String output;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cod_id", nullable = false)
+	private CodingInventory codId;
+
+	public TestCases() {
+	}
+
+	public TestCases(String input, String output) {
+		this.input = input;
+		this.output = output;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public CodingInventory getCodId() {
+		return codId;
+	}
+
+	public void setCodId(CodingInventory codId) {
+		this.codId = codId;
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
+
+	@Override
+	public String toString() {
+		return "TestCases [id=" + id + ", input=" + input + ", output=" + output + ", codId=" + codId + "]";
+	}
+
+}
+
+//  ------------------------------------------ OUTPUT -------------------------------------------------------
+[
+   {
+  "codingId": 1,
+  "difficultyLevel": "Easy",
+  "maxMarks": "05",
+  "totalTime": "1:00",
+  "instruction": null,
+  "programQuestion": "Coding Question",
+  "codeSnippet": "Snippet",
+  "codingTask": "task",
+  "codingHint": "hint",
+  "questionType": "Coding",
+  "explanation": null,
+  "topic": "Basic",
+  "answer": "process.stdin.once('data', (chunk) => {\n    let name = chunk.toString().trim();\n    console.log(\"Hello, \" + name + \"!\");\n});",
+  "customerId": "9108903327",
+  "pgmLang": "nodejs",
+  "testCases": [
+                  {
+                    "id": 1,
+                    "input": "arvind1",
+                    "output": "Hello, arvind1!"
+                  },
+                  {
+                    "id": 2,
+                    "input": "arvind2",
+                    "output": "Hello, arvind2!"
+                  },
+                  {
+                    "id": 3,
+                    "input": "arvind3",
+                    "output": "Hello, arvind3!"
+                  },
+                  {
+                    "id": 4,
+                    "input": "arvind4",
+                    "output": "Hello, arvind4!"
+                  }
+               ]
+  }
+]
